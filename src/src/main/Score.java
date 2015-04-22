@@ -11,6 +11,11 @@ public class Score
 		frame.setTitle(title+"                   Score:"+score);
 	}
 	
+	public static void reset()
+	{
+		score = 0;
+	}
+	
 	public static void addScore(int add)
 	{
 		score+=add;

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import src.Direction;
 import src.UI.Panel;
 import src.UI.Renderer2D;
+import src.main.LD32_Main;
 import src.main.Parameters;
 import src.main.Score;
 import src.objects.Enemy;
@@ -52,7 +53,7 @@ public class CharacterPane extends Panel{
 		user.loadBasicImage(userf);
 		user.enable();
 		
-		enemy = new Enemy(rand.nextInt(((Parameters.width-32) - 32) + 1) + 32,Parameters.height-(250+32),32,32,true);
+		enemy = new Enemy(rand.nextInt(((Parameters.width-64) - 64) + 1) + 64,Parameters.height-(250+32),32,32,true);
 		enemy.enable();
 		
 		enemies.add(enemy);
@@ -64,16 +65,26 @@ public class CharacterPane extends Panel{
 	
 	public void reset()
 	{
+		pulllorr = Direction.none;
+		pulluord = Direction.none;
+		LD32_Main.reset(user.isDead());
 		user.reset();
 		for(int x =0;x<enemies.size();x++)
 		{
 			enemies.get(x).reset();
 			enemies.get(x).enable();
+			System.out.println("Enemy "+x+" :"+enemies.get(x).getX()+"/"+enemies.get(x).getY());
 		}
-		enemy = new Enemy(rand.nextInt(((Parameters.width-32) - 32) + 1) + 32,Parameters.height-(250+32),32,32,true);
-		enemy.enable();
-		enemies.add(enemy);
-		renderer.addObject(enemy);
+		if(!user.isDead())
+		{
+			enemy = new Enemy(rand.nextInt(((Parameters.width-32) - 32) + 1) + 32,Parameters.height-(250+32),32,32,true);
+			enemy.enable();
+			enemies.add(enemy);
+			System.out.println(enemies.size());
+			renderer.addObject(enemy);
+			renderer.addObject(enemy.getBullet());
+			System.out.println("Enemy "+(enemies.size()-1)+" :"+enemy.getX()+"/"+enemy.getY());
+		}
 	}
 	
 	public void update(Direction lorr, boolean pushings, boolean pullings)
@@ -91,13 +102,18 @@ public class CharacterPane extends Panel{
 			{
 				disabled++;
 			}
+			if(enemies.get(x).isCharDead())
+			{
+				reset();
+				JOptionPane.showMessageDialog(null, "Score: "+Score.getScore());
+			}
 		}
 		if(disabled == enemies.size())
 		{
 			reset();
 			disabled = 0;
 		}
-		if(enemy.isCharDead() || user.isDead())
+		if(user.isDead())
 		{
 			reset();
 			JOptionPane.showMessageDialog(null, "Score: "+Score.getScore());
@@ -106,7 +122,7 @@ public class CharacterPane extends Panel{
 	
 	public void pushpull()
 	{
-			int range = 200;
+			int range = 75;
 			int charx = user.getX();
 			int chary = user.getY();
 			int enemyx = enemy.getX();

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.io.File;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +30,7 @@ public class Enemy extends TexturedObject2D{
 	Bullet bullet;
 	Timer timer;
 	TimerTask timertask;
+	Random rand = new Random();
 //	int[] corner 
 	
 	public Enemy(int xs, int ys, Dimension sizes, boolean filleds) {
@@ -109,7 +111,7 @@ public class Enemy extends TexturedObject2D{
 						{
 							x+=runspeed;
 						}
-						if(!bullet.isEnabled() && canfire)
+						if(!bullet.isEnabled() && canfire && pulllorr == Direction.none && pulluord == Direction.none)
 						{
 							bullet.enable(x, y, angle(user.getX()-x,user.getY()-y));
 							canfire = false;
@@ -182,7 +184,7 @@ public class Enemy extends TexturedObject2D{
 		chardead = false;
 		enabled = true;
 		bullet.reset();
-		x = 400;
+		x = rand.nextInt(((Parameters.width-32) - 32) + 1) + 32;
 		y = Parameters.height-(250+32);
 	}
 	

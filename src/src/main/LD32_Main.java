@@ -66,6 +66,15 @@ public class LD32_Main implements Runnable, Parameters, KeyListener
 		score = new Score();
 	}
 	
+	public static void reset(boolean chardead)
+	{
+		lorr = Direction.none;
+		pushing = false;
+		pulling = false;
+		if(chardead)
+			Score.reset();
+	}
+	
 	public static void initListeners()
 	{
 		window.addKeyListener(new LD32_Main());
