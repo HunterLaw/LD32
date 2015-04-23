@@ -11,7 +11,7 @@ public class Bullet extends NonTexturedObject2D{
 	double angle=0;
 	double x;
 	double y;
-	int movespeed = 7;
+	int movespeed = 4;
 	boolean hit = false;
 	Rectangle rect;
 	

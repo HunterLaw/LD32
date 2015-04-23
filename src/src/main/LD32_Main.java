@@ -188,7 +188,7 @@ public class LD32_Main implements Runnable, Parameters, KeyListener
 			break;
 			
 		case KeyEvent.VK_R:
-			panel.reset();
+			panel.reset(false);
 			break;
 		}
 	}

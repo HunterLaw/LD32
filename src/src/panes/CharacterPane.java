@@ -63,11 +63,11 @@ public class CharacterPane extends Panel{
 		renderer.addObject(enemy.getBullet());
 	}
 	
-	public void reset()
+	public void reset(boolean chardead)
 	{
 		pulllorr = Direction.none;
 		pulluord = Direction.none;
-		LD32_Main.reset(user.isDead());
+		LD32_Main.reset(chardead);
 		user.reset();
 		for(int x =0;x<enemies.size();x++)
 		{
@@ -77,7 +77,7 @@ public class CharacterPane extends Panel{
 		}
 		if(!user.isDead())
 		{
-			enemy = new Enemy(rand.nextInt(((Parameters.width-32) - 32) + 1) + 32,Parameters.height-(250+32),32,32,true);
+			enemy = new Enemy(rand.nextInt(Parameters.width-128) + 32,Parameters.height-(250+32),32,32,true);
 			enemy.enable();
 			enemies.add(enemy);
 			System.out.println(enemies.size());
@@ -104,25 +104,25 @@ public class CharacterPane extends Panel{
 			}
 			if(enemies.get(x).isCharDead())
 			{
-				reset();
 				JOptionPane.showMessageDialog(null, "Score: "+Score.getScore());
+				reset(true);
 			}
 		}
 		if(disabled == enemies.size())
 		{
-			reset();
+			reset(false);
 			disabled = 0;
 		}
 		if(user.isDead())
 		{
-			reset();
 			JOptionPane.showMessageDialog(null, "Score: "+Score.getScore());
+			reset(true);
 		}
 	}
 	
 	public void pushpull()
 	{
-			int range = 75;
+			int range = 100;
 			int charx = user.getX();
 			int chary = user.getY();
 			int enemyx = enemy.getX();

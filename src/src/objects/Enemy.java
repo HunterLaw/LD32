@@ -184,7 +184,7 @@ public class Enemy extends TexturedObject2D{
 		chardead = false;
 		enabled = true;
 		bullet.reset();
-		x = rand.nextInt(((Parameters.width-32) - 32) + 1) + 32;
+		x = rand.nextInt(Parameters.width - 128) + 32;
 		y = Parameters.height-(250+32);
 	}
 	
